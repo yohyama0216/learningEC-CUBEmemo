@@ -1,0 +1,76 @@
+# EC-CUBEのバージョンアップ作業について調査
+## 概要
+EC-CUBEには2,3,4系があり、いずれもフレームワークが異なる。
+特に2系は独自フレームワークなので3や4への移行はバージョンアップというよりリプレース。
+(だったら、shopifyとかに乗り換える人もいる模様）
+https://qiita.com/nanasess/items/dc8407c48a3dcf982ea2
+https://www.thank-u.net/blog/eccube/renew_eccube_from_version2_to_version4/
+https://www.xross-cube.com/service/ec-cube/about_ec-cube/ec-cube-2-3-4
+
+
+## 移行方針
+### 公式コミッターの書いた記事
+https://qiita.com/chihiro-adachi/items/0977a1aaa10a72ef3e99
+https://www.ec-cube.co/pdf/migration_manual_flow.pdf
+
+### DB移行
+・マスタ類に関してはそのままデータ移行
+・マスタ系以外は商品、受注、会員データについては大きく異なるため、移行用プログラムなどを作成して対応
+ポイントや商品レビュー機能など3系では標準で存在しない機能を利用していた場合、プラグインのテーブルに合わせて移行
+
+#### カラムの比較（２と３）
+https://amidaike.hatenablog.com/entry/2015/11/05/141219
+
+
+移行プラグインが出来ているので利用する。
+
+#### 実際に移行プラグインを使った人の記事
+https://www.rokuyon.com/356/
+
+#### クレジットカードを持っているケースもある？
+https://cajiya.co.jp/solution/ec-cube-upgrade
+
+ポイント類は面倒くさそう
+https://note.com/akihi/n/n71c2a9c5f1e8#tfkpV
+
+また顧客の暗号化のハッシュ値をコピーする。そうしないとログインできない。
+http://dalmore.blog7.fc2.com/blog-entry-210.html
+http://dalmore.blog7.fc2.com/blog-entry-210.html
+
+#### その他
+https://www.moco358.com/archives/11729
+https://www.moco358.com/archives/11754
+https://note.com/akihi/n/n71c2a9c5f1e8
+https://lpeg.info/webworks/eccube/eccube_datamove.html
+
+### コード移行
+フレームワークが異なるため、ほぼ新規作成。
+2系で出来ていたものが３，４系ではプラグインや有償プラグインになっていたりするので、どのように対応するか要検討。
+
+https://www.e2info.co.jp/service/ec-information/ec-information-1.html
+
+#### ３から４のコード置換（役立つか微妙）
+https://umebius.com/eccube/source_code_migration_from_eccube3_to_eccube4/
+
+
+### デザイン移行
+3系以降はSymphony系なのでテンプレートエンジンがTwigになっているため、以前のSmartyは使えない。
+置換作業が発生する。Smartyに比べてTwigだと自由に記述できないので、細かく見る必要あり。
+
+#### 文法的比較
+https://www.telln.com/lesson/2021/05/28/ec-cube3%E3%81%A8ec-cube2%E3%81%AE%E9%81%95%E3%81%84/
+
+置換ツールを使うと便利。
+https://qiita.com/hnillu0409/items/e50528064360de57eb46
+
+## その他
+公式開発コミュニティ
+https://xoops.ec-cube.net/
+
+
+https://md-systems.net/column20210628/
+→セキュリティチェックモジュール
+
+4系への不満など
+https://zenn.dev/ukeloop/articles/80244b47f15b0a
+
